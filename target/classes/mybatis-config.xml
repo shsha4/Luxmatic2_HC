@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE configuration
+
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.mat.dao.HCDAO" alias="HCDAO"/>
+		<typeAlias type="com.mat.model.SecurityLightVO" alias="SecurityVO"/>
+		<typeAlias type="com.mat.model.DongInfoVO" alias="DongInfoVO"/>
+		<typeAlias type="com.mat.model.DongSubInfoVO" alias="DongSubInfoVO"/>
+		<typeAlias type="com.mat.model.Criteria" alias="Criteria"/>
+		<typeAlias type="com.mat.model.SelectKey" alias="SelectKey"/>
+	</typeAliases>
+</configuration> 

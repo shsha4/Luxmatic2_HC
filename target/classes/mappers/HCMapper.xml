@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="HCDAO">
+	<resultMap type="SecurityVO" id="SecurityLight">
+		<result column="dong_id" property="dong_id"/>
+		<result column="dong_sub_id" property="dong_sub_id"/>
+		<result column="management_num" property="management_num"/>
+		<result column="latitude" property="latitude"/>
+		<result column="longitude" property="longitude"/>
+		<result column="install_street_address" property="install_street_address"/>
+		<result column="telegraph_pole_num" property="telegraph_pole_num"/>
+		<result column="pole_type" property="pole_type"/>
+		<result column="wattage" property="wattage"/>
+		<result column="search_date" property="search_date"/>
+		<result column="kepco_num" property="kepco_num"/>
+		<result column="thumbnail_photo2" property="thumbnail_photo2"/>
+		<result column="thumbnail_photo3" property="thumbnail_photo3"/>
+		<result column="thumbnail_photo4" property="thumbnail_photo4"/>
+		<collection property="dongInfo" resultMap="DongInfo" />
+		<collection property="dongSubInfo" resultMap="DongSubInfo" />
+	</resultMap>
+	
+	<resultMap type="DongInfoVO" id="DongInfo">
+		<result column="dong_id" property="dong_id" />
+		<result column="dong_name" property="dong_name" />		
+	</resultMap>
+	
+	<resultMap type="DongSubInfoVO" id="DongSubInfo">
+		<result column="dong_id" property="dong_id" />
+		<result column="dong_sub_name" property="dong_sub_name" />		
+	</resultMap>
+	
+	<select id="getDongSubName" resultType="String">
+		SELECT dong_sub_name FROM lms_dong_sub_info
+	</select>
+	
+	<select id="getDongName" resultType="String">
+		SELECT dong_name FROM lms_dong_info
+	</select>
+	
+	<select id="getCount" resultType="Integer" parameterType="Criteria">
+		SELECT COUNT(*) 
+		FROM lms_securitylight a, lms_dong_info b, lms_dong_sub_info c
+		WHERE a.dong_id = b.dong_id AND a.dong_sub_id = c.dong_sub_id
+		<include refid="search"/>
+	</select>
+	
+	<select id="selectList" resultMap="SecurityLight" parameterType="Criteria">
+		SELECT
+			e.securitylight_seq,	
+			d.dong_name,
+			d.dong_sub_name,
+			e.latitude,
+			e.longitude,
+			e.management_num,
+			e.install_street_address,
+			e.telegraph_pole_num,
+			e.pole_type,
+			e.wattage,
+			e.search_date,
+			e.kepco_num,
+			e.thumbnail_photo2,
+			e.thumbnail_photo3,
+			e.thumbnail_photo4						
+		FROM 
+			(SELECT a.management_num, b.dong_name, c.dong_sub_name, a.dong_id, a.dong_sub_id 
+			FROM lms_securitylight a, lms_dong_info b, lms_dong_sub_info c
+			WHERE a.dong_id = b.dong_id AND a.dong_sub_id = c.dong_sub_id
+			<include refid="search"/>
+			LIMIT #{pageStart} , #{perPageNum}) d, lms_securitylight e 
+		WHERE
+		d.management_num = e.management_num AND d.dong_id = e.dong_id AND d.dong_sub_id = e.dong_sub_id
+	</select>
+	
+	<select id="getAllList" resultMap="SecurityLight" parameterType="Criteria">
+		SELECT
+			e.securitylight_seq,	
+			d.dong_name,
+			d.dong_sub_name,
+			e.latitude,
+			e.longitude,
+			e.management_num,
+			e.install_street_address,
+			e.telegraph_pole_num,
+			e.pole_type,
+			e.wattage,
+			e.search_date,
+			e.kepco_num,
+			e.thumbnail_photo2,
+			e.thumbnail_photo3,
+			e.thumbnail_photo4						
+		FROM 
+			(SELECT a.management_num, b.dong_name, c.dong_sub_name, a.dong_id, a.dong_sub_id FROM lms_securitylight a, lms_dong_info b, lms_dong_sub_info c
+			WHERE a.dong_id = b.dong_id AND a.dong_sub_id = c.dong_sub_id
+			<include refid="search"/>
+			) d, lms_securitylight e 
+		WHERE
+			d.management_num = e.management_num AND d.dong_id = e.dong_id AND d.dong_sub_id = e.dong_sub_id
+	</select>
+	
+	<select id="selectLamp" resultMap="SecurityLight" parameterType="SelectKey">
+		SELECT * 
+		FROM 
+			lms_securitylight a, lms_dong_info b, lms_dong_sub_info c
+		WHERE 
+			a.dong_id = b.dong_id AND a.dong_sub_id = c.dong_sub_id and a.management_num = #{management_num} 
+			AND b.dong_name LIKE #{dong_name} AND c.dong_sub_name LIKE #{dong_sub_name}; 
+	</select>
+	
+	<sql id="search">
+		<if test="searchType != null">
+			<if test="searchType == 1">
+				AND b.dong_name LIKE CONCAT('%', #{keyword}, '%') 
+			</if>
+			<if test="searchType == 2">
+				AND c.dong_sub_name LIKE CONCAT('%', #{keyword}, '%') 
+			</if>
+			<if test="searchType == 3">
+				AND a.install_street_address LIKE CONCAT('%', #{keyword}, '%') 
+			</if>
+			<if test="searchType == 4">
+				AND a.telegraph_pole_num LIKE CONCAT('%', #{keyword}, '%') 
+			</if>
+		</if>
+	</sql>
+	
+</mapper>
