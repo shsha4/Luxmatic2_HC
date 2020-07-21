@@ -28,6 +28,7 @@ $(document).ready(function() {
 	let dong_name;
 	let dong_sub_name;
 	let management_num;
+	
 
 	$('#lampTable tbody tr').click(function() {
 		customOverlay.setMap(null);
@@ -65,6 +66,7 @@ $(document).ready(function() {
 		}
 	});
 	
+	$('#lampTable tbody tr:first').trigger("click");
 	
 	function markerEvent(i){
 		

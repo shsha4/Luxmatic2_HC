@@ -25,9 +25,9 @@
   					</table>
   					
 				<div id="imgLayout" style="height: 25%; width: 100%; text-align: center;">
-					<img  src="resources/am01/${lamp.thumbnail_photo2 }" onerror="this.remove ? this.remove() : this.removeNode();" style="width: 99%; height: 100%; border: solid 1px #0d39d0;">
-					<img  src="resources/am01/${lamp.thumbnail_photo3 }" onerror="this.remove ? this.remove() : this.removeNode();" style="width: 99%; height: 100%; border: solid 1px #0d39d0; margin-top: 5px;">
-					<img  src="resources/am01/${lamp.thumbnail_photo4 }" onerror="this.remove ? this.remove() : this.removeNode();" style="width: 99%; height: 100%; border: solid 1px #0d39d0; margin-top: 5px;">
+					<img  src="/img/${lamp.thumbnail_photo2 }" onerror="this.remove ? this.remove() : this.removeNode();" style="width: 99%; height: 100%; border: solid 1px #0d39d0;">
+					<img  src="/img/${lamp.thumbnail_photo3 }" onerror="this.remove ? this.remove() : this.removeNode();" style="width: 99%; height: 100%; border: solid 1px #0d39d0; margin-top: 5px;">
+					<img  src="/img/${lamp.thumbnail_photo4 }" onerror="this.remove ? this.remove() : this.removeNode();" style="width: 99%; height: 100%; border: solid 1px #0d39d0; margin-top: 5px;">
 				</div> 
 			</div>
 		</div>
